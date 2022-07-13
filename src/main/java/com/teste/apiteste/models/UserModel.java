@@ -1,14 +1,20 @@
 package com.teste.apiteste.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="TB_USER")
 public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
+    @OneToMany(mappedBy = "userCRM")
+    private List<CRM> crmList = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +33,7 @@ public class UserModel implements Serializable {
 
     @Column(nullable = false)
     private LocalDateTime registrationDate;
+
 
     public long getId() {
         return id;
@@ -82,5 +89,9 @@ public class UserModel implements Serializable {
 
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public List<CRM> getCrmList() {
+        return crmList;
     }
 }
