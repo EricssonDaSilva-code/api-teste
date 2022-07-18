@@ -1,8 +1,10 @@
 package com.teste.apiteste.dto;
 
+import com.teste.apiteste.models.CRM;
+
 import javax.validation.constraints.NotBlank;
 
-public class CrmDto {
+public class CrmDto extends CRM {
     @NotBlank
     private String crm;
     @NotBlank

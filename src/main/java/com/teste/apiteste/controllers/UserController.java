@@ -1,10 +1,7 @@
 package com.teste.apiteste.controllers;
 
-import com.teste.apiteste.dto.CrmDto;
 import com.teste.apiteste.dto.UserDto;
-import com.teste.apiteste.models.CRM;
 import com.teste.apiteste.models.UserModel;
-import com.teste.apiteste.services.CRMService;
 import com.teste.apiteste.services.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +22,8 @@ public class UserController {
     @Autowired
     final UserService userService;
 
-    final CRMService crmService;
-
-    public UserController(UserService userService, CRMService crmService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.crmService = crmService;
     }
 
     @PostMapping
@@ -46,16 +40,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userModel));
     }
 
-    @PostMapping("/crm")
-    public ResponseEntity<Object> saveCrm(@RequestBody @Valid CrmDto crmDto) {
-        if (crmService.existsByCrm(crmDto.getCrm())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: This CRM already exists.");
-        }
-        CRM crm = new CRM();
-        BeanUtils.copyProperties(crmDto, crm);
-        crm.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-        return ResponseEntity.status(HttpStatus.CREATED).body(crmService.saveCrm(crm));
-    }
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getAllUsers() {

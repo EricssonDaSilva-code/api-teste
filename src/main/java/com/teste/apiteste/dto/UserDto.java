@@ -1,9 +1,10 @@
 package com.teste.apiteste.dto;
 
+import com.teste.apiteste.models.UserModel;
+
 import javax.validation.constraints.NotBlank;
 
-public class UserDto {
-
+public class UserDto extends UserModel {
     @NotBlank
     private String email;
     @NotBlank

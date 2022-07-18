@@ -1,5 +1,7 @@
 package com.teste.apiteste.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -8,9 +10,9 @@ import java.time.LocalDateTime;
 @Table(name = "TB_USER_CRM")
 public class CRM implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "USER_CRM")
+    @JoinColumn(name = "user_id")
     private UserModel userCRM;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
